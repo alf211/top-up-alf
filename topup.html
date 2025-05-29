@@ -12,7 +12,8 @@
     }
   </style>
 </head>
-<body class="bg-gradient-to-br from-gray-900 to-black text-white min-h-screen p-6">
+<body class="text-white min-h-screen bg-cover bg-fixed"
+      style="background-image: url('https://i.ibb.co/dLsFt50/bg-topup.jpg');">
   <h1 class="text-4xl font-bold text-center mb-8 animate-bounce">Top Up Game</h1>
 
   <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10" id="game-list"></div>
@@ -39,7 +40,7 @@
       const card = document.createElement('div');
       card.className = 'game-card cursor-pointer bg-gray-800 rounded-lg p-4 text-center shadow hover:ring-4 hover:ring-green-400 transition-all';
       card.innerHTML = `
-        <img src="${game.image}" alt="${game.name}" class="w-24 h-24 mx-auto mb-4 object-contain" />
+        <img src="https://i.ibb.co/BnwhGhJ/mlbb.jpg" alt="MLBB" class="w-full h-40 object-cover">
         <p class="text-lg font-semibold">${game.name}</p>
       `;
       card.addEventListener('click', () => {

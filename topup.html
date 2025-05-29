@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Top Up Game</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    .game-card:hover {
+      transform: scale(1.05);
+      transition: 0.3s ease-in-out;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-gray-900 to-black text-white min-h-screen p-6">
+  <h1 class="text-4xl font-bold text-center mb-8 animate-bounce">Top Up Game</h1>
+
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10" id="game-list"></div>
+
+  <div id="form-section" class="hidden max-w-md mx-auto bg-gray-800 p-6 rounded-xl shadow-lg">
+    <h2 id="form-title" class="text-xl font-bold mb-4 text-center">Top Up</h2>
+    <input type="text" id="user-id" placeholder="Masukkan User ID" class="w-full mb-4 p-2 rounded bg-gray-700 text-white"/>
+    <input type="number" id="amount" placeholder="Jumlah Diamond/Koin" class="w-full mb-4 p-2 rounded bg-gray-700 text-white"/>
+    <button id="pay-button" class="w-full py-2 bg-green-600 hover:bg-green-700 rounded">Bayar Sekarang</button>
+  </div>
+
+  <script>
+    const games = [
+      { name: 'Mobile Legends', image: 'https://upload.wikimedia.org/wikipedia/en/8/88/Mobile_Legends_game_logo.png' },
+      { name: 'Free Fire', image: 'https://upload.wikimedia.org/wikipedia/en/e/ed/Garena_Free_Fire_logo.png' },
+      { name: 'PUBG Mobile', image: 'https://upload.wikimedia.org/wikipedia/en/3/30/PUBG_Mobile_logo.png' },
+    ];
+
+    const gameList = document.getElementById('game-list');
+    const formSection = document.getElementById('form-section');
+    const formTitle = document.getElementById('form-title');
+
+    games.forEach((game) => {
+      const card = document.createElement('div');
+      card.className = 'game-card cursor-pointer bg-gray-800 rounded-lg p-4 text-center shadow hover:ring-4 hover:ring-green-400 transition-all';
+      card.innerHTML = `
+        <img src="${game.image}" alt="${game.name}" class="w-24 h-24 mx-auto mb-4 object-contain" />
+        <p class="text-lg font-semibold">${game.name}</p>
+      `;
+      card.addEventListener('click', () => {
+        formSection.classList.remove('hidden');
+        formTitle.textContent = `Top Up ${game.name}`;
+      });
+      gameList.appendChild(card);
+    });
+
+    document.getElementById('pay-button').addEventListener('click', () => {
+      const userID = document.getElementById('user-id').value;
+      const amount = document.getElementById('amount').value;
+      if (!userID || !amount) {
+        alert('Mohon lengkapi semua field.');
+        return;
+      }
+      localStorage.setItem('topupData', JSON.stringify({
+        user: userID,
+        game: formTitle.textContent.replace('Top Up ', ''),
+        amount: amount
+      }));
+      window.location.href = 'konfirmasi.html';
+    });
+  </script>
+</body>
+</html>
